@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+pytest = "*"
+
+[requires]
+python_version = "3.5"
+
+[packages]
+eqassertions = {editable = true, path = "."}
+
+[scripts]
+test = "pytest eqassertions --doctest-modules"
