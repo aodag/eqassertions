@@ -1,4 +1,6 @@
-__version__ = '0.1.1'
+import re
+
+__version__ = '0.2'
 
 
 class Any:
@@ -38,3 +40,19 @@ class IsA:
 
     def __eq__(self, o):
         return isinstance(o, self.typ)
+
+
+class Match:
+    """
+    >>> v = {"a": 1, "b": 2}
+    >>> assert v == {"a": 1, "b": Match(r"\d")}
+    >>> assert v == {"a": 1, "b": Match(r"[a-z]")}
+    Traceback (most recent call last):
+     ...
+    AssertionError
+    """
+    def __init__(self, pattern):
+        self.pt = re.compile(pattern)
+
+    def __eq__(self, o):
+        return self.pt.match(str(o))
