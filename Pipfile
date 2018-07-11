@@ -14,4 +14,4 @@ python_version = "3.5"
 eqassertions = {editable = true, path = "."}
 
 [scripts]
-test = "pytest eqassertions --doctest-modules"
+test = "pytest tests eqassertions --doctest-modules"
