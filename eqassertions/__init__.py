@@ -1,7 +1,5 @@
 import re
 
-__version__ = '0.3'
-
 marker = object()
 
 
