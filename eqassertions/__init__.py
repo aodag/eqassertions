@@ -121,3 +121,20 @@ class Len:
     def __repr__(self):
         return repr(self.o) if self.o != marker else 'Len'
 
+
+class In:
+    o = marker
+
+    def __init__(self, values):
+        self.values = values
+
+    def __eq__(self, o):
+        e = (o in self.values)
+        if e:
+            self.o = o
+        else:
+            self.o = "%s not in %s" % (o, self.values)
+        return e
+
+    def __repr__(self):
+        return repr(self.o) if self.o != marker else 'In(%s)' % self.values
