@@ -141,3 +141,27 @@ class TestMatch:
         m = target(r"\d")
         m == "a"
         assert repr(m) == r"'a is not match \\d'"
+
+
+class TestIn:
+    @pytest.fixture
+    def target(self):
+        from eqassertions import In
+        return In
+
+    def test_eq(self, target):
+        m = target([1, 2, 3])
+        assert m == 1
+
+    def test_eq_not_in(self, target):
+        m = target([1, 2, 3])
+        assert not m == 4
+
+    def test_repr(self, target):
+        m = target([1, 2, 3])
+        assert repr(m) == "In([1, 2, 3])"
+
+    def test_repr_after_eq(self, target):
+        m = target([1, 2, 3])
+        m == 1
+        assert repr(m) == "1"
