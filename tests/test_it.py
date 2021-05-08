@@ -165,3 +165,66 @@ class TestIn:
         m = target([1, 2, 3])
         m == 1
         assert repr(m) == "1"
+
+
+class TestRange:
+    @pytest.fixture
+    def target(self):
+        from eqassertions import Range
+        return Range
+
+    @pytest.mark.parametrize(
+        "range,value",
+        [
+            pytest.param(
+                (3, 10),
+                3,
+            ),
+            pytest.param(
+                (3, 10),
+                9,
+            ),
+            pytest.param(
+                (3, 10),
+                10,
+                marks=[pytest.mark.xfail(strict=True)],
+            ),
+            pytest.param(
+                (3, 10),
+                2,
+                marks=[pytest.mark.xfail(strict=True)],
+            ),
+        ],
+    )
+    def test_eq(self, target, range, value):
+        m = target(*range)
+        assert m == value
+
+    def test_repr(self, target):
+        m = target(4, 7)
+        assert repr(m) == "Range(4, 7)"
+
+    @pytest.mark.parametrize(
+        "range,value,s",
+        [
+            pytest.param(
+                (10, 100),
+                10,
+                "10",
+            ),
+            pytest.param(
+                (10, 100),
+                100,
+                "'100 >= 100'",
+            ),
+            pytest.param(
+                (10, 100),
+                9,
+                "'9 < 10'",
+            ),
+        ],
+    )
+    def test_repr_after_eq(self, target, range, value, s):
+        m = target(*range)
+        m == value
+        assert repr(m) == s
