@@ -21,3 +21,8 @@ jobs:
     - name: package
       run: |
         python -m build .
+    - name: upload dists
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: dist
