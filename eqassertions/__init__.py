@@ -138,3 +138,24 @@ class In:
 
     def __repr__(self):
         return repr(self.o) if self.o != marker else 'In(%s)' % self.values
+
+
+class Range:
+    o = marker
+
+    def __init__(self, lower, upper):
+        self.lower = lower
+        self.upper = upper
+
+    def __eq__(self, o):
+        e = self.lower <= o < self.upper
+        if o < self.lower:
+            self.o = "%s < %s" % (o, self.lower)
+        elif o >= self.upper:
+            self.o = "%s >= %s" % (o, self.upper)
+        else:
+            self.o = o
+        return e
+
+    def __repr__(self):
+        return repr(self.o) if self.o != marker else 'Range(%s, %s)' % (self.lower, self.upper)
